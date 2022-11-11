@@ -33,15 +33,6 @@ const App = () => {
     setNewArray(data[name].completed);
   };
 
-  // const FetchData = async (id) => {
-  //   const { data } = await axios.get(`${url}/${id}`);
-  //   let name = Object.keys(data)[0];
-  //   setlistUserName(name);
-  //   setstoreid(id);
-  //   setItems(data[name].task);
-  //   setNewArray(data[name].completed);
-  // };
-
   //post data in api
   const CreateTodo = async (e, name) => {
     e.preventDefault();
@@ -56,11 +47,6 @@ const App = () => {
     });
     setShow(false);
   };
-
-  //update by id
-  // const updateTodo = () => {
-  //   setShowUpdate((prev) => !prev);
-  // };
 
   // update api
   const updateApi = (storeid) => {
@@ -176,18 +162,6 @@ const App = () => {
     setItems([...items]);
   };
 
-  // //markall task to completed task
-  // const markAllTask = () => {
-  //   setNewArray(items);
-  //   setItems([]);
-  // };
-
-  // //markall completed task to task
-  // const markAllCompletedTask = () => {
-  //   setItems(newArray);
-  //   setNewArray([]);
-  // };
-
   //markall task to completed task
   const markAllTask = () => {
     items.map((values) => {
@@ -244,7 +218,6 @@ const App = () => {
     let targetName = event.target.innerHTML;
     let data = await axios.get(`${url}/${updateId}`);
     let obj = Object.keys(data.data)[0];
-    // console.log(obj, "obj");
     let body = {};
     body[targetName] = data.data[obj];
     axios.put(`${url}/${updateId}`, body).then(() => {
@@ -283,14 +256,7 @@ const App = () => {
               className="form-control"
             />
             <Modal.Footer>
-              {/* <button className="btn btn-secondary" onClick={handleClose}>
-                Close
-              </button> */}
-              <button
-                className="btn btn-primary"
-                type="submit"
-                // onClick={() => CreateTodo(userName)}
-              >
+              <button className="btn btn-primary" type="submit">
                 Save
               </button>
             </Modal.Footer>
@@ -313,7 +279,6 @@ const App = () => {
                 <input
                   type="text"
                   placeholder="Search..."
-                  // value={userName}
                   onChange={(event) => {
                     setSearch(event.target.value);
                   }}
@@ -346,10 +311,7 @@ const App = () => {
                       let name = Object.keys(element)[0];
                       // console.log(Object.keys(element)[0], "element");
                       return (
-                        <tr
-                          key={element.id}
-                          // onClick={() => FetchData(element.id)}
-                        >
+                        <tr key={element.id}>
                           <td>
                             <ContentEditable
                               html={name}
@@ -360,7 +322,6 @@ const App = () => {
                               onChange={handleContentEditableUpdate}
                               onBlur={updateName}
                             />
-                            {/* {name} */}
                           </td>
                           <td>{element[name].task.length}</td>
                           <td>{element[name].completed.length}</td>
@@ -376,7 +337,6 @@ const App = () => {
                             <button
                               className="btn btn-sm btn-info"
                               onClick={() => FetchData(element.id)}
-                              // onClick={() => updateTodo(element.id)}
                             >
                               <i
                                 className="fa fa-pencil fa-sm"
@@ -460,7 +420,6 @@ const App = () => {
                           >
                             {items.map((itemvalue, index) => {
                               return (
-                                // draggableId={String(new Date().getTime())}
                                 <Draggable
                                   draggableId={String(index)}
                                   key={index}
@@ -599,43 +558,3 @@ const App = () => {
 };
 
 export default App;
-
-// Destructuring Example
-
-let arr = [2, 4, 8, 9, 12, 15];
-// let [a, b, c, d, ...rest] = arr;
-// console.log(a, b, c, d, rest);
-let [a, , , b, ...rest] = arr;
-console.log(a, b, rest);
-
-let obj = {
-  name: "karan",
-  company: "algoscript",
-  location: "bharuch",
-};
-
-let keys = Object.keys(obj);
-console.log(keys, "keys");
-
-let values = Object.values(obj);
-console.log(values, "values");
-
-let entries = Object.entries(obj);
-console.log(entries, "entries");
-
-let name = obj.name;
-let company = obj.company;
-let location = obj.location;
-console.log(company, "company", name, "name", location, "location");
-
-console.log("obj-----", { name: "ajay", location: "surat", ...obj });
-
-//Hoisting Example
-
-abc();
-function abc() {
-  console.log("good morning");
-}
-console.log(ab);
-var ab = 10;
-console.log(ab);
